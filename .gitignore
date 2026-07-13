@@ -24,3 +24,5 @@ results/*.png
 *.err
 .DS_Store
 Thumbs.db
+*.docx
+*.pdf
