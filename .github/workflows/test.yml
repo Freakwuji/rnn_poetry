@@ -1,0 +1,42 @@
+name: Test RNN Poetry Generation
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install numpy
+      - name: Create test data
+        run: |
+          mkdir -p data checkpoints
+          echo "静夜思:床前明月光，疑是地上霜。举头望明月，低头思故乡。" > data/poetry.txt
+          echo "春晓:春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。" >> data/poetry.txt
+          echo "登鹳雀楼:白日依山尽，黄河入海流。欲穷千里目，更上一层楼。" >> data/poetry.txt
+      - name: Test data loading
+        run: |
+          cd src
+          python -c "import process; p=process.load_poetry(); print(f'Loaded {len(p)} sentences'); v=process.build_vocab(p); print(f'Vocab: {v[\"size\"]} chars')"
+      - name: Test model creation
+        run: |
+          cd src
+          python -c "from model import PoetryLSTM, count_parameters; m=PoetryLSTM(100); t,b=count_parameters(m); print(f'Model created: {t:,} total params, {b:,} trainable')"
+      - name: Test forward pass
+        run: |
+          cd src
+          python -c "
+import torch
+from model import PoetryLSTM
+m=PoetryLSTM(100)
+x=torch.randint(0,100,(2,10))
+out,_=m(x)
+print(f'Forward pass OK: input {list(x.shape)} -> output {list(out.shape)}')
+print('Test passed!')
+"
