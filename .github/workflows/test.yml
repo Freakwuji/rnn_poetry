@@ -19,7 +19,6 @@ jobs:
           mkdir -p data checkpoints
           echo "静夜思:床前明月光，疑是地上霜。举头望明月，低头思故乡。" > data/poetry.txt
           echo "春晓:春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。" >> data/poetry.txt
-          echo "登鹳雀楼:白日依山尽，黄河入海流。欲穷千里目，更上一层楼。" >> data/poetry.txt
       - name: Test data loading
         run: |
           cd src
@@ -27,16 +26,8 @@ jobs:
       - name: Test model creation
         run: |
           cd src
-          python -c "from model import PoetryLSTM, count_parameters; m=PoetryLSTM(100); t,b=count_parameters(m); print(f'Model created: {t:,} total params, {b:,} trainable')"
+          python -c "from model import PoetryLSTM, count_parameters; m=PoetryLSTM(100); t,b=count_parameters(m); print(f'Model created: {t:,} params')"
       - name: Test forward pass
         run: |
           cd src
-          python -c "
-import torch
-from model import PoetryLSTM
-m=PoetryLSTM(100)
-x=torch.randint(0,100,(2,10))
-out,_=m(x)
-print(f'Forward pass OK: input {list(x.shape)} -> output {list(out.shape)}')
-print('Test passed!')
-"
+          python -c "import torch; from model import PoetryLSTM; m=PoetryLSTM(100); x=torch.randint(0,100,(2,10)); out,_=m(x); print(f'Forward OK: {list(out.shape)}')"
