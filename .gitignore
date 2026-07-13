@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+
+# Data (too large)
+data/poetry.txt
+data/vocab.json
+*.tar.gz
+*.zip
+
+# Models
+checkpoints/
+*.pt
+*.pth
+
+# Results
+results/*.png
+
+# Temp
+*.log
+*.err
+.DS_Store
+Thumbs.db
