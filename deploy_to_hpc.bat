@@ -6,17 +6,22 @@ echo ======================================
 echo.
 
 set HOST=login.hpc.whu.edu.cn
-set USER=clli_04
+set USER=%HPC_USER%
+if "%USER%"=="" (
+    echo 请先设置环境变量 HPC_USER（你的超算账号）
+    pause
+    exit /b 1
+)
 
 :: 第1步：打包项目
 echo [1/4] 打包项目文件...
-cd /d "D:\My World\Study\Program Practise\Python\rnn_poetry"
+cd /d "%~dp0"
 tar -czf %TEMP%\rnn_poetry.tar.gz *.py *.txt data\ checkpoints\ 2>nul
 echo    完成
 echo.
 
 :: 第2步：上传文件
-echo [2/4] 上传到超算（请输入密码: clli@123$）
+echo [2/4] 上传到超算（按提示输入密码）
 echo.
 scp %TEMP%\rnn_poetry.tar.gz %USER%@%HOST%:~/
 echo.

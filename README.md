@@ -99,7 +99,7 @@ python main.py --predict
 python main.py --start "春江"
 
 # 藏头诗
-python main.py --acrostic "黎坤朗"
+python main.py --acrostic "张三"
 ```
 
 ### 代码中调用
@@ -150,10 +150,10 @@ print(result)
 # 1. 上传代码到超算
 cd rnn_poetry
 tar -czf rnn_poetry.tar.gz .
-scp rnn_poetry.tar.gz clli_04@swarm01.whu.edu.cn:~/
+scp rnn_poetry.tar.gz your_hpc_user@swarm01.whu.edu.cn:~/
 
 # 2. 登录超算解压
-ssh clli_04@swarm01.whu.edu.cn
+ssh your_hpc_user@swarm01.whu.edu.cn
 tar xzf rnn_poetry.tar.gz -C ~/project/CODE/rnn_poetry
 
 # 3. 安装依赖
@@ -170,7 +170,7 @@ sbatch hpc_job.sh
 ### 查看状态
 
 ```bash
-squeue -u clli_04          # 查看队列
+squeue -u your_hpc_user          # 查看队列
 tail -f job_*.log           # 实时看训练输出
 squeue -j <job_id>          # 查看特定作业
 ```

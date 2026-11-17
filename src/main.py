@@ -345,7 +345,7 @@ def predict():
 
     # 示例 2: 藏头诗
     print("\n\n📝 藏头诗示例")
-    headers = '黎坤朗'
+    headers = '李白'
     result = gen_acrostic(headers, model, vocab)
     print(f"   '{headers}'  {result}\n")
 

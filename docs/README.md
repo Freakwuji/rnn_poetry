@@ -211,13 +211,13 @@ python visualize.py
 ```powershell
 cd "d:\Desktop\AI实训\3古诗生成实验\rnn_poetry"
 tar -czf rnn_poetry.tar.gz . --exclude=__pycache__
-scp rnn_poetry.tar.gz clli_04@swarm01.whu.edu.cn:~/
+scp rnn_poetry.tar.gz your_hpc_user@swarm01.whu.edu.cn:~/
 ```
 
 ### 7.2 提交作业
 
 ```bash
-ssh clli_04@swarm01.whu.edu.cn
+ssh your_hpc_user@swarm01.whu.edu.cn
 mkdir -p ~/project/CODE/rnn_poetry && cd ~/project/CODE/rnn_poetry
 tar xzf ~/rnn_poetry.tar.gz
 sbatch run_experiments.sh
@@ -226,7 +226,7 @@ sbatch run_experiments.sh
 ### 7.3 查看进度
 
 ```bash
-squeue -u clli_04
+squeue -u your_hpc_user
 tail -f job_*.log
 ```
 

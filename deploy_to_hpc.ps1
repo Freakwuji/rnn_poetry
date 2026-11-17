@@ -2,9 +2,13 @@
 # 用法：右键 → 使用 PowerShell 运行
 
 $hostname = "login.hpc.whu.edu.cn"
-$username = "clli_04"
-$password = "clli@123$"
-$localPath = "D:\My World\Study\Program Practise\Python\rnn_poetry"
+$username = $env:HPC_USER          # 从环境变量读，勿把账号写进仓库
+$localPath = $PSScriptRoot        # 脚本所在目录
+
+if (-not $username) {
+    Write-Host "请先设置环境变量 HPC_USER（你的超算账号）" -ForegroundColor Red
+    exit 1
+}
 $remotePath = "~/rnn_poetry"
 
 Write-Host "======================================" -ForegroundColor Cyan
